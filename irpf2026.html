@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRPF 2026 — Declaração de Imposto de Renda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --verde: #1A3F40;
+    --verde-claro: #234f50;
+    --ouro: #AC863D;
+    --ouro-claro: #D5C46B;
+    --branco: #FFFFFF;
+    --creme: #F9F5EE;
+    --cinza: #6b7280;
+    --borda: rgba(172,134,61,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--creme);
+    color: var(--verde);
+    overflow-x: hidden;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--ouro);
+    color: var(--branco);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+  .topbar a {
+    color: var(--branco);
+    text-decoration: none;
+    background: rgba(255,255,255,0.2);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    transition: background .2s;
+  }
+  .topbar a:hover { background: rgba(255,255,255,0.35); }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--verde);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 68px;
+    border-bottom: 2px solid var(--ouro);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--branco);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--ouro-claro); }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--ouro-claro); }
+  .nav-cta {
+    background: var(--ouro);
+    color: var(--branco) !important;
+    padding: 9px 22px !important;
+    border-radius: 4px;
+    font-weight: 500 !important;
+    transition: background .2s, transform .1s !important;
+  }
+  .nav-cta:hover { background: var(--ouro-claro) !important; color: var(--verde) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 88vh;
+    background: var(--verde);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 80px 8% 60px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(172,134,61,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -60px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(213,196,107,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(172,134,61,0.2);
+    border: 1px solid var(--ouro);
+    color: var(--ouro-claro);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeDown 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--ouro-claro);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 600;
+    color: var(--branco);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    animation: fadeDown 0.7s ease 0.1s both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--ouro-claro);
+  }
+  .hero-subtitle {
+    color: rgba(255,255,255,0.72);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 40px;
+    animation: fadeDown 0.7s ease 0.2s both;
+    max-width: 480px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeDown 0.7s ease 0.3s both;
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .btn-primary {
+    background: var(--ouro);
+    color: var(--branco);
+    padding: 14px 30px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(172,134,61,0.35);
+  }
+  .btn-primary:hover {
+    background: var(--ouro-claro);
+    color: var(--verde);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(172,134,61,0.45);
+  }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.85);
+    padding: 14px 28px;
+    border-radius: 5px;
+    font-weight: 400;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: border-color .2s, color .2s, background .2s;
+  }
+  .btn-outline:hover {
+    border-color: var(--ouro-claro);
+    color: var(--ouro-claro);
+    background: rgba(213,196,107,0.06);
+  }
+
+  /* HERO CARD */
+  .hero-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(213,196,107,0.3);
+    border-radius: 16px;
+    padding: 40px 36px;
+    backdrop-filter: blur(8px);
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    color: var(--ouro-claro);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .prazo-box {
+    background: rgba(172,134,61,0.15);
+    border-left: 3px solid var(--ouro);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 24px;
+  }
+  .prazo-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ouro-claro);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .prazo-data {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--branco);
+    font-weight: 600;
+  }
+  .prazo-detalhe {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 3px;
+  }
+  .beneficios-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .beneficios-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+  }
+  .beneficios-list li::before {
+    content: '✓';
+    width: 22px; height: 22px;
+    background: rgba(172,134,61,0.25);
+    border: 1px solid var(--ouro);
+    color: var(--ouro-claro);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* SECTION BASE */
+  section { padding: 88px 8%; }
+
+  .section-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ouro);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 600;
+    color: var(--verde);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    color: var(--cinza);
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 560px;
+  }
+
+  /* STATS */
+  .stats-bar {
+    background: var(--verde);
+    padding: 40px 8%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+  }
+  .stat-item {
+    text-align: center;
+    padding: 20px;
+    border-right: 1px solid rgba(172,134,61,0.2);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--ouro-claro);
+    display: block;
+  }
+  .stat-desc {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.82rem;
+    margin-top: 4px;
+  }
+
+  /* QUEM DEVE DECLARAR */
+  .declare-section {
+    background: var(--creme);
+  }
+  .declare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+    margin-top: 48px;
+  }
+  .declare-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .declare-card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    padding: 20px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .declare-card:hover {
+    border-color: var(--ouro);
+    box-shadow: 0 4px 20px rgba(172,134,61,0.12);
+  }
+  .card-icon {
+    width: 36px; height: 36px;
+    background: rgba(172,134,61,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    color: var(--ouro);
+  }
+  .declare-card h4 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--verde);
+    margin-bottom: 4px;
+  }
+  .declare-card p {
+    font-size: 0.8rem;
+    color: var(--cinza);
+    line-height: 1.6;
+  }
+  .declare-aside {
+    position: sticky;
+    top: 90px;
+  }
+  .alerta-box {
+    background: var(--verde);
+    border-radius: 14px;
+    padding: 36px 32px;
+    color: var(--branco);
+    margin-bottom: 20px;
+  }
+  .alerta-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--ouro-claro);
+  }
+  .alerta-box p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .alerta-box .multa {
+    background: rgba(172,134,61,0.2);
+    border: 1px solid rgba(172,134,61,0.4);
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 0.83rem;
+    color: var(--ouro-claro);
+    line-height: 1.6;
+  }
+
+  /* DOCUMENTOS */
+  .docs-section { background: var(--branco); }
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .doc-card {
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 28px 24px;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ouro), var(--ouro-claro));
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26,63,64,0.1);
+    border-color: var(--ouro);
+  }
+  .doc-card:hover::before { opacity: 1; }
+  .doc-icon {
+    font-size: 1.5rem;
+    margin-bottom: 14px;
+  }
+  .doc-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--verde);
+    margin-bottom: 10px;
+  }
+  .doc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .doc-list li {
+    font-size: 0.82rem;
+    color: var(--cinza);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .doc-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--ouro);
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+
+  /* NOTICIAS */
+  .noticias-section { background: var(--creme); }
+  .noticias-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .noticia-card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow .2s, transform .2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .noticia-card:hover {
+    box-shadow: 0 8px 32px rgba(26,63,64,0.12);
+    transform: translateY(-3px);
+  }
+  .noticia-header {
+    background: var(--verde);
+    padding: 28px 24px 20px;
+    position: relative;
+  }
+  .noticia-tag {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ouro-claro);
+    background: rgba(172,134,61,0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .noticia-header h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--branco);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .noticia-body {
+    padding: 20px 24px;
+  }
+  .noticia-date {
+    font-size: 0.75rem;
+    color: var(--ouro);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .noticia-body p {
+    font-size: 0.83rem;
+    color: var(--cinza);
+    line-height: 1.7;
+  }
+
+  /* CTA FINAL */
+  .cta-section {
+    background: linear-gradient(135deg, var(--verde) 0%, #0f2728 100%);
+    text-align: center;
+    padding: 100px 8%;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '2026';
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.03);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .cta-section .section-title { color: var(--branco); max-width: 600px; margin: 0 auto 16px; }
+  .cta-section .section-desc { color: rgba(255,255,255,0.65); margin: 0 auto 40px; text-align: center; }
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0f2324;
+    color: rgba(255,255,255,0.55);
+    padding: 40px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(172,134,61,0.2);
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--branco);
+    font-weight: 600;
+  }
+  .footer-brand span { color: var(--ouro-claro); }
+  footer p { font-size: 0.8rem; }
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--ouro-claro); }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 999;
+    background: #25D366;
+    color: white;
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    font-size: 1.5rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(37,211,102,0.55);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; padding: 60px 6% 50px; }
+    .declare-grid { grid-template-columns: 1fr; }
+    .declare-aside { position: static; }
+    .docs-grid, .noticias-grid { grid-template-columns: 1fr 1fr; }
+    .stats-bar { grid-template-columns: 1fr 1fr; }
+    nav .nav-links { display: none; }
+    section { padding: 60px 6%; }
+  }
+  @media (max-width: 600px) {
+    .docs-grid, .noticias-grid { grid-template-columns: 1fr; }
+    .stats-bar { grid-template-columns: 1fr 1fr; }
+    .hero-actions { flex-direction: column; }
+    .topbar { flex-direction: column; gap: 8px; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📅 Prazo de entrega: <strong>23/03/2026 a 29/05/2026</strong></span>
+  <a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração">Fale agora no WhatsApp →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Kontemplar <span>Contabilidade</span></a>
+  <ul class="nav-links">
+    <li><a href="#quem-deve">Quem deve declarar</a></li>
+    <li><a href="#documentos">Documentos</a></li>
+    <li><a href="#noticias">Novidades</a></li>
+    <li><a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" class="nav-cta">Declarar agora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">IRPF 2026 · Ano-base 2025</div>
+    <h1 class="hero-title">
+      Declare com<br><em>tranquilidade</em><br>e segurança
+    </h1>
+    <p class="hero-subtitle">
+      Nossa equipe de especialistas analisa todas as informações, identifica deduções legais e garante que sua declaração seja feita com total conformidade e sem riscos.
+    </p>
+    <div class="hero-actions">
+      <a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" class="btn-primary">
+        ✉ Fale com um especialista
+      </a>
+      <a href="#documentos" class="btn-outline">Ver documentos necessários</a>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <p class="card-title">Prazos e informações essenciais</p>
+    <div class="prazo-box">
+      <div class="prazo-label">Período de entrega</div>
+      <div class="prazo-data">23 mar — 29 mai 2026</div>
+      <div class="prazo-detalhe">Entrega à Receita Federal · Ano-base 2025</div>
+    </div>
+    <ul class="beneficios-list">
+      <li>Análise completa dos seus rendimentos</li>
+      <li>Identificação de todas as deduções legais</li>
+      <li>Envio seguro e acompanhamento online</li>
+      <li>Suporte especializado em todo o processo</li>
+      <li>Restituição mais rápida com entrega no início do prazo</li>
+    </ul>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">2026</span>
+    <div class="stat-desc">Exercício fiscal</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">R$35.584</span>
+    <div class="stat-desc">Limite de rendimentos tributáveis</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">R$800k</span>
+    <div class="stat-desc">Limite de bens e direitos</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">29/mai</span>
+    <div class="stat-desc">Prazo final de entrega</div>
+  </div>
+</div>
+
+<!-- QUEM DEVE DECLARAR -->
+<section class="declare-section" id="quem-deve">
+  <div class="section-label">Obrigatoriedade</div>
+  <h2 class="section-title">Quem deve declarar<br>o Imposto de Renda?</h2>
+
+  <div class="declare-grid">
+    <div class="declare-cards">
+      <div class="declare-card">
+        <div class="card-icon">💰</div>
+        <div>
+          <h4>Rendimentos tributáveis acima de R$35.584,00</h4>
+          <p>Salários, aposentadoria, aluguéis e outros rendimentos tributáveis no ano.</p>
+        </div>
+      </div>
+      <div class="declare-card">
+        <div class="card-icon">📊</div>
+        <div>
+          <h4>Rendimentos isentos acima de R$200.000,00</h4>
+          <p>Incluindo rendimentos não tributáveis ou tributados exclusivamente na fonte.</p>
+        </div>
+      </div>
+      <div class="declare-card">
+        <div class="card-icon">📈</div>
+        <div>
+          <h4>Ganho de capital ou operações em bolsa acima de R$40.000,00</h4>
+          <p>Alienação de bens ou direitos sujeitos ao imposto.</p>
+        </div>
+      </div>
+      <div class="declare-card">
+        <div class="card-icon">🌾</div>
+        <div>
+          <h4>Atividade rural com receita bruta acima de R$177.920,00</h4>
+          <p>Ou quem pretende compensar prejuízos de anos anteriores.</p>
+        </div>
+      </div>
+      <div class="declare-card">
+        <div class="card-icon">🏠</div>
+        <div>
+          <h4>Patrimônio superior a R$800.000,00</h4>
+          <p>Bens ou direitos em seu nome em 31 de dezembro do ano anterior.</p>
+        </div>
+      </div>
+      <div class="declare-card">
+        <div class="card-icon">🌎</div>
+        <div>
+          <h4>Passou a residir no Brasil em qualquer mês do ano</h4>
+          <p>E nessa condição se encontrava em 31 de dezembro.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="declare-aside">
+      <div class="alerta-box">
+        <h3>⚠ Atenção</h3>
+        <p>Após o prazo de entrega, o contribuinte fica sujeito à multa de atraso:</p>
+        <div class="multa">
+          <strong>20% sobre o imposto devido</strong><br>
+          com valor mínimo de <strong>R$165,74</strong> — mesmo que não haja imposto a pagar.
+        </div>
+        <br>
+        <p>A isenção para quem ganha até R$5.000 aprovada pela reforma só terá efeito na declaração de <strong>2027</strong> (rendimentos de 2026).</p>
+      </div>
+      <a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" class="btn-primary" style="width:100%;justify-content:center;">
+        Iniciar minha declaração →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTOS -->
+<section class="docs-section" id="documentos">
+  <div class="section-label">Documentação</div>
+  <h2 class="section-title">Documentos necessários</h2>
+  <p class="section-desc">Reúna previamente todos os documentos para garantir uma declaração correta, sem inconsistências e sem pendências com a Receita Federal.</p>
+
+  <div class="docs-grid">
+    <div class="doc-card">
+      <div class="doc-icon">🪪</div>
+      <h4>Dados Pessoais</h4>
+      <ul class="doc-list">
+        <li>Nome, CPF e data de nascimento</li>
+        <li>Título de eleitor (1ª declaração)</li>
+        <li>CPF e dados dos dependentes</li>
+        <li>Endereço atualizado</li>
+        <li>Cópia da última declaração com recibo</li>
+        <li>PIX ou conta bancária para restituição</li>
+        <li>Acesso GOV.BR nível prata ou ouro</li>
+      </ul>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">📄</div>
+      <h4>Informes de Rendimentos</h4>
+      <ul class="doc-list">
+        <li>Informe de bancos e corretoras</li>
+        <li>Distribuição de lucros e dividendos</li>
+        <li>Aposentadoria ou pensão</li>
+        <li>Rendimentos de aluguéis</li>
+        <li>Pensão alimentícia, heranças, doações</li>
+        <li>Livro-caixa e Carnê-Leão, se houver</li>
+      </ul>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">🏥</div>
+      <h4>Despesas Dedutíveis</h4>
+      <ul class="doc-list">
+        <li>Despesas médicas e odontológicas</li>
+        <li>Planos de saúde (titular e dependentes)</li>
+        <li>Despesas com educação</li>
+        <li>Doações realizadas</li>
+        <li>Serviços tomados de PF e PJ</li>
+      </ul>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">🏠</div>
+      <h4>Bens e Direitos</h4>
+      <ul class="doc-list">
+        <li>Data de aquisição do imóvel</li>
+        <li>IPTU, área e número da matrícula</li>
+        <li>Nome do Cartório de registro</li>
+        <li>Renavam e registro de veículos</li>
+        <li>Documentos de compra e venda</li>
+      </ul>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">💳</div>
+      <h4>Ônus e Dívidas</h4>
+      <ul class="doc-list">
+        <li>Empréstimos realizados ou recebidos</li>
+        <li>Financiamentos (imóvel, veículo, etc.)</li>
+        <li>Dívidas contraídas no ano</li>
+        <li>Documentos comprobatórios de dívidas pagas</li>
+      </ul>
+    </div>
+    <div class="doc-card">
+      <div class="doc-icon">🏢</div>
+      <h4>Declaração MEI</h4>
+      <ul class="doc-list">
+        <li>Declaração SIMEI do ano anterior</li>
+        <li>Faturamento mensal do ano</li>
+        <li>Pró-labore, se houver</li>
+        <li>Regras especiais para rendimentos isentos e tributáveis</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NOTÍCIAS -->
+<section class="noticias-section" id="noticias">
+  <div class="section-label">Novidades IRPF 2026</div>
+  <h2 class="section-title">Fique por dentro das<br>últimas atualizações</h2>
+
+  <div class="noticias-grid">
+    <a href="#" class="noticia-card">
+      <div class="noticia-header">
+        <span class="noticia-tag">Prazo</span>
+        <h4>IRPF 2026: entrega começa dia 23 de março e vai até 29 de maio</h4>
+      </div>
+      <div class="noticia-body">
+        <div class="noticia-date">19/03/2026</div>
+        <p>O prazo oficial para envio da declaração é menor do que nos últimos anos. Saiba como se preparar para entregar antes e garantir a restituição mais cedo.</p>
+      </div>
+    </a>
+    <a href="#" class="noticia-card">
+      <div class="noticia-header">
+        <span class="noticia-tag">Rendimentos</span>
+        <h4>Salário precisa ser declarado? Veja quem deve informar os rendimentos</h4>
+      </div>
+      <div class="noticia-body">
+        <div class="noticia-date">19/03/2026</div>
+        <p>O salário recebido ao longo do ano deve constar na declaração de quem está obrigado a prestar contas à Receita Federal. Entenda as regras.</p>
+      </div>
+    </a>
+    <a href="#" class="noticia-card">
+      <div class="noticia-header">
+        <span class="noticia-tag">Restituição</span>
+        <h4>Restituição automática do Imposto de Renda 2026 começa em junho</h4>
+      </div>
+      <div class="noticia-body">
+        <div class="noticia-date">19/03/2026</div>
+        <p>A Receita Federal anunciou lote especial de restituição para contribuintes que não caem na malha fina. Saiba como garantir prioridade no recebimento.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="section-label" style="color:var(--ouro-claro)">Comece agora</div>
+  <h2 class="section-title">Evite multas e declare<br>com quem entende</h2>
+  <p class="section-desc">Nossa equipe está pronta para guiar você em cada etapa. Envie seus documentos e deixe o restante com a gente.</p>
+  <div class="cta-buttons">
+    <a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" class="btn-primary" style="font-size:1rem;padding:16px 36px;">
+      💬 Falar com especialista no WhatsApp
+    </a>
+    <a href="#documentos" class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.8)">
+      Ver documentos necessários
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Kontemplar <span>Contabilidade</span></div>
+    <p style="margin-top:6px">© 2026 · Todos os direitos reservados</p>
+  </div>
+  <div class="footer-links">
+    <a href="#quem-deve">Quem deve declarar</a>
+    <a href="#documentos">Documentos</a>
+    <a href="#noticias">Novidades</a>
+    <a href="https://wa.me/+5562992685784">WhatsApp</a>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="whatsapp-float" href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" title="Falar no WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+</body>
+</html>
