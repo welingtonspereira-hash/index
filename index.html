@@ -29,77 +29,7 @@
     overflow-x: hidden;
   }
 
-  /* TOPBAR */
-  .topbar {
-    background: var(--ouro);
-    color: var(--branco);
-    text-align: center;
-    padding: 10px 20px;
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-  }
-  .topbar a {
-    color: var(--branco);
-    text-decoration: none;
-    background: rgba(255,255,255,0.2);
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    transition: background .2s;
-  }
-  .topbar a:hover { background: rgba(255,255,255,0.35); }
-
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--verde);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
-    height: 68px;
-    border-bottom: 2px solid var(--ouro);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--branco);
-    letter-spacing: 0.03em;
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--ouro-claro); }
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
-  .nav-links a {
-    color: rgba(255,255,255,0.8);
-    text-decoration: none;
-    font-size: 0.88rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: color .2s;
-  }
-  .nav-links a:hover { color: var(--ouro-claro); }
-  .nav-cta {
-    background: var(--ouro);
-    color: var(--branco) !important;
-    padding: 9px 22px !important;
-    border-radius: 4px;
-    font-weight: 500 !important;
-    transition: background .2s, transform .1s !important;
-  }
-  .nav-cta:hover { background: var(--ouro-claro) !important; color: var(--verde) !important; transform: translateY(-1px); }
+  /* TOPBAR, NAV, FOOTER removidos — versão para embed no Google Sites */
 
   /* HERO */
   .hero {
@@ -591,59 +521,9 @@
     flex-wrap: wrap;
   }
 
-  /* FOOTER */
-  footer {
-    background: #0f2324;
-    color: rgba(255,255,255,0.55);
-    padding: 40px 8%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    border-top: 1px solid rgba(172,134,61,0.2);
-  }
-  .footer-brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    color: var(--branco);
-    font-weight: 600;
-  }
-  .footer-brand span { color: var(--ouro-claro); }
-  footer p { font-size: 0.8rem; }
-  .footer-links {
-    display: flex;
-    gap: 20px;
-  }
-  .footer-links a {
-    color: rgba(255,255,255,0.5);
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: color .2s;
-  }
-  .footer-links a:hover { color: var(--ouro-claro); }
+  /* FIM DOS ESTILOS */
 
   /* WHATSAPP FLOAT */
-  .whatsapp-float {
-    position: fixed;
-    bottom: 28px; right: 28px;
-    z-index: 999;
-    background: #25D366;
-    color: white;
-    width: 58px; height: 58px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-    font-size: 1.5rem;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 30px rgba(37,211,102,0.55);
-  }
 
   /* RESPONSIVE */
   @media (max-width: 960px) {
@@ -666,23 +546,6 @@
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <span>📅 Prazo de entrega: <strong>23/03/2026 a 29/05/2026</strong></span>
-  <a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração">Fale agora no WhatsApp →</a>
-</div>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">Kontemplar <span>Contabilidade</span></a>
-  <ul class="nav-links">
-    <li><a href="#quem-deve">Quem deve declarar</a></li>
-    <li><a href="#documentos">Documentos</a></li>
-    <li><a href="#noticias">Novidades</a></li>
-    <li><a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" class="nav-cta">Declarar agora</a></li>
-  </ul>
-</nav>
-
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
@@ -694,7 +557,7 @@
       Nossa equipe de especialistas analisa todas as informações, identifica deduções legais e garante que sua declaração seja feita com total conformidade e sem riscos.
     </p>
     <div class="hero-actions">
-      <a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" class="btn-primary">
+      <a href="https://wa.me/+5562984648043?text=Olá, quero fazer minha declaração" class="btn-primary">
         ✉ Fale com um especialista
       </a>
       <a href="#documentos" class="btn-outline">Ver documentos necessários</a>
@@ -800,7 +663,7 @@
         <br>
         <p>A isenção para quem ganha até R$5.000 aprovada pela reforma só terá efeito na declaração de <strong>2027</strong> (rendimentos de 2026).</p>
       </div>
-      <a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" class="btn-primary" style="width:100%;justify-content:center;">
+      <a href="https://wa.me/+5562984648043?text=Olá, quero fazer minha declaração" class="btn-primary" style="width:100%;justify-content:center;">
         Iniciar minha declaração →
       </a>
     </div>
@@ -929,7 +792,7 @@
   <h2 class="section-title">Evite multas e declare<br>com quem entende</h2>
   <p class="section-desc">Nossa equipe está pronta para guiar você em cada etapa. Envie seus documentos e deixe o restante com a gente.</p>
   <div class="cta-buttons">
-    <a href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" class="btn-primary" style="font-size:1rem;padding:16px 36px;">
+    <a href="https://wa.me/+5562984648043?text=Olá, quero fazer minha declaração" class="btn-primary" style="font-size:1rem;padding:16px 36px;">
       💬 Falar com especialista no WhatsApp
     </a>
     <a href="#documentos" class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.8)">
@@ -938,26 +801,7 @@
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div>
-    <div class="footer-brand">Kontemplar <span>Contabilidade</span></div>
-    <p style="margin-top:6px">© 2026 · Todos os direitos reservados</p>
-  </div>
-  <div class="footer-links">
-    <a href="#quem-deve">Quem deve declarar</a>
-    <a href="#documentos">Documentos</a>
-    <a href="#noticias">Novidades</a>
-    <a href="https://wa.me/+5562992685784">WhatsApp</a>
-  </div>
-</footer>
 
-<!-- WHATSAPP FLOAT -->
-<a class="whatsapp-float" href="https://wa.me/+5562992685784?text=Olá, quero fazer minha declaração" title="Falar no WhatsApp">
-  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-</a>
 
 </body>
 </html>
