@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topbar — Kontemplar</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --verde:      #1A3F40;
+  --verde-deep: #112a2b;
+  --ouro:       #AC863D;
+  --ouro-claro: #D5C46B;
+  --branco:     #FFFFFF;
+}
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background: transparent;
+  margin: 0;
+}
+
+/* ── TOPBAR WRAPPER ── */
+.topbar {
+  background: var(--verde);
+  border-bottom: 2px solid var(--ouro);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle texture */
+.topbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 120px,
+    rgba(172,134,61,0.06) 120px,
+    rgba(172,134,61,0.06) 121px
+  );
+  pointer-events: none;
+}
+
+/* ── INNER LAYOUT ── */
+.topbar-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 32px;
+  gap: 16px;
+  min-height: 48px;
+}
+
+/* ── LEFT: badge ── */
+.topbar-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.badge-pill {
+  background: var(--ouro);
+  color: var(--verde-deep);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ouro-claro);
+  animation: blink 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+/* ── CENTER: message ── */
+.topbar-msg {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.msg-text {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.78);
+  white-space: nowrap;
+}
+.msg-text strong {
+  font-weight: 600;
+  color: var(--branco);
+}
+.msg-sep {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(172,134,61,0.5);
+  flex-shrink: 0;
+}
+
+/* ── RIGHT: CTA button ── */
+.topbar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ouro);
+  color: var(--verde-deep);
+  text-decoration: none;
+  padding: 7px 18px;
+  border-radius: 3px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 2px 10px rgba(172,134,61,0.3);
+}
+.topbar-cta:hover {
+  background: var(--ouro-claro);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(172,134,61,0.4);
+}
+.topbar-cta svg {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+}
+
+/* ── CLOSE button ── */
+.topbar-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,0.4);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.topbar-close:hover {
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.08);
+}
+.topbar-close svg { width: 14px; height: 14px; }
+
+/* ── HIDE state ── */
+.topbar.hidden {
+  display: none;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .topbar-inner { padding: 10px 16px; flex-wrap: wrap; }
+  .topbar-badge { display: none; }
+  .msg-sep { display: none; }
+  .msg-text { font-size: 0.78rem; white-space: normal; text-align: center; }
+  .topbar-msg { flex-basis: 100%; order: 1; }
+  .topbar-cta { order: 2; width: 100%; justify-content: center; }
+  .topbar-close { position: absolute; top: 8px; right: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar">
+  <div class="topbar-inner">
+
+    <!-- Badge -->
+    <div class="topbar-badge">
+      <div class="badge-dot"></div>
+      <span class="badge-pill">Atendimento</span>
+    </div>
+
+    <!-- Mensagem central -->
+    <div class="topbar-msg">
+      <span class="msg-text">
+        <strong>Fale com um contador agora</strong>
+      </span>
+      <div class="msg-sep"></div>
+      <span class="msg-text">Tire dúvidas sobre IRPF, abertura de empresa ou contabilidade</span>
+    </div>
+
+    <!-- CTA -->
+    <a
+      href="https://wa.me/5562992685784?text=Olá, vim pelo site da Kontemplar e gostaria de mais informações"
+      class="topbar-cta"
+      target="_blank"
+      rel="noopener"
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Falar no WhatsApp
+    </a>
+
+    <!-- Fechar -->
+    <button class="topbar-close" onclick="closeTopbar()" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+
+  </div>
+</div>
+
+<script>
+function closeTopbar() {
+  document.getElementById('topbar').classList.add('hidden');
+}
+</script>
+
+</body>
+</html>
